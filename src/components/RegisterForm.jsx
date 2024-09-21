@@ -184,7 +184,7 @@ const RegisterForm = () => {
                                 <option value="Admin">Admin</option>
                             </select>
                         </div>
-                        <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="email">
                                 Email
                             </label>
@@ -200,7 +200,7 @@ const RegisterForm = () => {
                                 id="email"
                                 type="text"
                             />
-                        </div>
+                        </div> */}
                         <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="password">
                                 Password

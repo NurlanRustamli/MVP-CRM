@@ -1,13 +1,10 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
-const LoginForm = () => {
+const FirstRegister = () => {
+    const nav = useNavigate()
   return (
-   
-      
-      <>
-  {/* Hello world */}
-  <div className="flex h-screen">
+   <div className="flex h-screen">
     {/* Left side - Gmail login form */}
     <div className=" flex items-center justify-center slide-in-left">
       <form id="loginForm" className="bg-white p-8 rounded-lg shadow-md w-80">
@@ -39,30 +36,21 @@ const LoginForm = () => {
             required=""
           />
         </div>
-        <div className="mb-6">
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter your password"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required=""
-          />
-        </div>
+     
         <button
           id="loginButton"
           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 hover-scale"
           type="submit"
+          onClick={()=>nav("/email-confirmation")}
         >
-          Login
+          Continue
         </button>
-    <Link to={"/register"}>Register</Link>
+  
       </form>
     </div>
  
   </div>
-</>
-
   )
 }
 
-export default LoginForm
+export default FirstRegister

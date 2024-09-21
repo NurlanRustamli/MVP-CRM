@@ -1,13 +1,13 @@
 import React from 'react'
+import Register from './Register'
 import RegisterForm from '../components/RegisterForm'
-import FirstRegister from '../components/FirstRegister'
 
-const Register = () => {
+const RegisterDetail = () => {
   return (
     <section className='grid place-items-center  flex items-center justify-center'>
-    <FirstRegister/>
+        <RegisterForm/>
     </section>
   )
 }
 
-export default Register
+export default RegisterDetail
