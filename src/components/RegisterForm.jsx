@@ -16,31 +16,31 @@ const RegisterForm = () => {
     const companyDomain = useRef(null)
 
     const nav = useNavigate()
- 
+
     const registerUser = (e) => {
         e.preventDefault()
-      
+
         const formData = new FormData();
-        formData.append("file",file)
-        formData.append("upload_preset","x5obdcrh")
-        axios.post(`https://api.cloudinary.com/v1_1/dcmgray9m/upload`,formData
-        ).then(res=>{
-      
+        formData.append("file", file)
+        formData.append("upload_preset", "x5obdcrh")
+        axios.post(`https://api.cloudinary.com/v1_1/dcmgray9m/upload`, formData
+        ).then(res => {
+
             usersApi.registerUser(
                 {
-                            name: name.current.value,
-                            surname: surname.current.value,
-                            email: email.current.value,
-                            password: password.current.value,
-                            company_name: companyName.current.value,
-                            company_domain: companyDomain.current.value,
-                            team_size: teamSize.current.value?teamSize.current.value:"Only Me",
-                            PhoneNumber: phoneNumer.current.value,
-                            role: role.current.value?role.current.value:"User",
-                            avatar: res.data.url
-                        }
-            ).then(res=>{
-                if(res.status ===201){
+                    name: name.current.value,
+                    surname: surname.current.value,
+                    email: email.current.value,
+                    password: password.current.value,
+                    company_name: companyName.current.value,
+                    company_domain: companyDomain.current.value,
+                    team_size: teamSize.current.value ? teamSize.current.value : "Only Me",
+                    PhoneNumber: phoneNumer.current.value,
+                    role: role.current.value ? role.current.value : "User",
+                    avatar: res.data.url
+                }
+            ).then(res => {
+                if (res.status === 201) {
                     alert("Registration successfully completed")
                     name.current.value = ""
                     companyDomain.current.value = ""
@@ -53,15 +53,15 @@ const RegisterForm = () => {
                     name.current.value = ""
                     setFile(null)
                     nav("/login")
-                }else{
+                } else {
                     alert(res.statusText)
                 }
             })
-           
+
         })
     }
 
- 
+
     return (
         <>
             <div className="px-3 py-5 w-full">
@@ -115,8 +115,8 @@ const RegisterForm = () => {
                                 className="border rounded-lg h-[40px] outline-none px-2"
                                 id="companyName"
                                 type="text"
-                    ref={companyName}
-                    required
+                                ref={companyName}
+                                required
 
                             />
                         </div>
@@ -132,8 +132,8 @@ const RegisterForm = () => {
                                 className="border rounded-lg h-[40px] outline-none px-2"
                                 id="companyDomain"
                                 type="text"
-                        ref={companyDomain}
-                        required
+                                ref={companyDomain}
+                                required
 
                             />
                         </div>
@@ -149,8 +149,8 @@ const RegisterForm = () => {
                                 className="border rounded-lg h-[40px] outline-none px-2"
                                 id="phone"
                                 type="text"
-                  ref={phoneNumer}
-                  required
+                                ref={phoneNumer}
+                                required
 
                             />
                         </div>
@@ -160,8 +160,8 @@ const RegisterForm = () => {
                             </label>
 
                             <select name="teamSize" id="teamSize" data-phone="true"
-                            ref={teamSize}
-                          
+                                ref={teamSize}
+
                                 data-required="true"
                                 data-message="The team size cannot be left blank!" className="border rounded-lg h-[40px] outline-none px-2">
                                 <option value="Only Me">Only Me</option>
@@ -177,7 +177,7 @@ const RegisterForm = () => {
                                 Role
                             </label>
                             <select name="role" id="role" data-phone="true"
-                            ref={role}
+                                ref={role}
                                 data-required="true"
                                 data-message="The role cannot be left blank!" className="border rounded-lg h-[40px] outline-none px-2">
                                 <option value="User">User</option>
@@ -201,23 +201,7 @@ const RegisterForm = () => {
                                 type="text"
                             />
                         </div> */}
-                        <div className="flex flex-col">
-                            <label className="mb-2 font-medium" htmlFor="password">
-                                Password
-                            </label>
-                            <input
-                            ref={password}
-                                data-min={5}
-                                required
 
-                                data-required="true"
-                                data-message="The password cannot be left blank!"
-                                name="password"
-                                className="border rounded-lg h-[40px] outline-none px-2"
-                                id="password"
-                                type="password"
-                            />
-                        </div>
                         {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="re-password">
                                 Repeat Password
@@ -247,15 +231,15 @@ const RegisterForm = () => {
                                 className="border rounded-lg h-[40px] outline-none px-2"
                                 id="profphoto"
                                 type="file"
-                                onChange={(e)=>setFile(e.target.files[0])}
+                                onChange={(e) => setFile(e.target.files[0])}
                             />
                         </div>
                         <button
                             className="bg-[#FE3737] text-white font-medium py-2 rounded-lg"
                             type="submit"
                         >
-                            {" "}
-                            Register{" "}
+
+                            Register
                         </button>
                         <Link to={"/login"}>Login</Link>    </form>
                 </div>
