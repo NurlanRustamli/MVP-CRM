@@ -1,13 +1,32 @@
-import React from 'react'
+import axios from 'axios'
+import React, { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 const FirstRegister = () => {
     const nav = useNavigate()
+    const email = useRef("")
+
+    const emailSend = async (e)=>{
+      e.preventDefault()
+      console.log(email.current.value)
+      // if (email.current.value !="") {
+      //   try {
+        
+      //     await axios.post("http://constructionasp-001-site1.ctempurl.com/api/admin/user",{email:email.current.value})
+      //   } catch (error) {
+      //     console.log(error)
+      //   }
+      // }
+
+      nav("/email-confirmation")
+    
+
+    }
   return (
    <div className="flex h-screen">
     {/* Left side - Gmail login form */}
     <div className=" flex items-center justify-center slide-in-left">
-      <form id="loginForm" className="bg-white p-8 rounded-lg shadow-md w-80">
+      <form id="loginForm" className="bg-white p-8 rounded-lg shadow-md w-80" onSubmit={emailSend}>
         <div className="flex items-center justify-center mb-6">
           <svg
             className="text-red-500 mr-2"
@@ -34,6 +53,7 @@ const FirstRegister = () => {
             placeholder="Enter your email"
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required=""
+            ref={email}
           />
         </div>
      
@@ -41,9 +61,9 @@ const FirstRegister = () => {
           id="loginButton"
           className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 hover-scale"
           type="submit"
-          onClick={()=>nav("/email-confirmation")}
+          
         >
-          Continue
+          Send
         </button>
   
       </form>
