@@ -24,9 +24,9 @@ function App() {
           <Route element={<Login />} path='login' />
           <Route element={<RegisterDetail />} path='email-confirmation/detail' />
           <Route element={<RegisterPassword />} path='email-confirmation/' />
-          <Route element={<ResetPassPage />} path='forgot-password' >
-            <Route element={<ForgotPassPage />} path='new' />
+          <Route element={<ResetPassPage />} path='forgot-password/' >
           </Route>
+            <Route element={<ForgotPassPage />} path='new-password' />
         </Route>
       </Routes>
     </>

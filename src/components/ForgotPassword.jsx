@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const ForgotPassword = () => {
     return (
@@ -40,21 +41,7 @@ const ForgotPassword = () => {
                                 Safe and fast access with Lead2B
                             </p>
                         </div>
-                        <div className="relative">
-                            <input
-                                type="password"
-                                id="pass"
-                                placeholder=" "
-                                className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
-                                required
-                            />
-                            <label
-                                htmlFor="pass"
-                                className="input-label absolute left-4 top-3 lg:left-5 lg:top-4 text-gray-500 text-base lg:text-lg transition-all duration-300 pointer-events-none"
-                            >
-                                Current Password
-                            </label>
-                        </div>
+                    
                         <div className="relative">
                             <input
                                 type="password"
