@@ -1,16 +1,19 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
 import { useNavigate } from 'react-router'
 import { Link } from 'react-router-dom'
 
 const SecondRegister = () => {
     const [eye, setEye] = useState(false)
+    const [eye1, setEye1] = useState(false)
+
+    const pass1 = useRef()
+    const pass2 = useRef()
 
     const checkPassword = (e) => {
         e.preventDefault()
-        const pass1 = document.querySelector("#password")
-        const pass2 = document.querySelector("#password2")
-        if (pass1.innerHTML === pass2.innerHTML) {
+
+        if (pass1.current.value === pass2.current.value) {
             nav("/email-confirmation/detail")
 
         } else {
@@ -44,6 +47,9 @@ const SecondRegister = () => {
                             </svg>
                             <h2 className="text-2xl font-bold text-gray-800">Enter Your Password</h2>
                         </div>
+
+
+
                         <div className="mb-4 " style={{ position: "relative" }}>
                             <input
                                 type={eye ? "text" : "password"}
@@ -51,29 +57,36 @@ const SecondRegister = () => {
                                 placeholder="Enter your password"
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
+                                ref={pass1}
                             />
                             <div onClick={() => setEye(!eye)} style={{ position: "absolute", top: "25%", right: "5%", fontSize: "22px" }}>
 
                                 {eye ? <FaEye /> : <FaEyeSlash />}
                             </div>
                         </div>
+
+
                         <div className="mb-6" style={{ position: "relative" }} >
                             <input
-                                type={eye ? "text" : "password"}
+                                type={eye1 ? "text" : "password"}
                                 id="password2"
                                 placeholder="Repeat your password"
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                 required
+                                ref={pass2}
 
                             />
-                            <div onClick={() => setEye(!eye)} style={{ position: "absolute", top: "25%", right: "5%", fontSize: "22px" }}>
+                            <div onClick={() => setEye1(!eye1)} style={{ position: "absolute", top: "25%", right: "5%", fontSize: "22px" }}>
 
-                                {eye ? <FaEye /> : <FaEyeSlash />}
+                                {eye1 ? <FaEye /> : <FaEyeSlash />}
                             </div>
 
 
 
                         </div>
+
+
+
                         <button
                             id="loginButton"
                             className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 hover-scale"

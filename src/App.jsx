@@ -8,6 +8,9 @@ import Login from './pages/Login'
 import HomePage from './pages/HomePage'
 import RegisterDetail from './pages/RegisterDetail'
 import RegisterPassword from './pages/RegisterPassword'
+import ResetPassPage from './pages/ResetPassEmailPage'
+import ForgotPassPage from './pages/ForgotPassPage'
+
 
 function App() {
 
@@ -19,8 +22,11 @@ function App() {
           <Route element={<HomePage />} index />
           <Route element={<Register />} path='register' />
           <Route element={<Login />} path='login' />
-            <Route element={<RegisterDetail />} path='email-confirmation/detail' />
-          <Route element={<RegisterPassword />} path='email-confirmation/'/>
+          <Route element={<RegisterDetail />} path='email-confirmation/detail' />
+          <Route element={<RegisterPassword />} path='email-confirmation/' />
+          <Route element={<ResetPassPage />} path='forgot-password' >
+            <Route element={<ForgotPassPage />} path='new' />
+          </Route>
         </Route>
       </Routes>
     </>

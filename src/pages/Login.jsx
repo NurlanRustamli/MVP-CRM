@@ -3,7 +3,7 @@ import LoginForm from '../components/LoginForm'
 
 const Login = () => {
   return (
-    <section className='grid place-items-center  flex items-center justify-center'>
+    <section className='min-h-screen flex items-center justify-center p-4'>
     <LoginForm/>
     </section>
   )
