@@ -41,7 +41,7 @@ const ForgotPassword = () => {
                                 Safe and fast access with Lead2B
                             </p>
                         </div>
-                    
+                      
                         <div className="relative">
                             <input
                                 type="password"
