@@ -28,7 +28,7 @@ function App() {
           <Route element={<RegisterPassword />} path='email-confirmation' />
           <Route element={<ResetPassPage />} path='forgot-password' />
 
-            <Route element={<ForgotPassPage />} path='new-password' />
+            <Route element={<ForgotPassPage />} path='reset-password' />
           <Route element={<Invitation/>} path='invitation'/>
           <Route element={<Dashboard/>} path='dashboard'/>
         </Route>

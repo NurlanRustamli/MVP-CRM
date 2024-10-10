@@ -1,7 +1,47 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 const ForgotPassword = () => {
+
+    const pass1 = useRef()
+    const pass2 = useRef()
+    const location = useLocation();
+
+    // Create a new URLSearchParams instance to parse the query string
+    const queryParams = new URLSearchParams(location.search);
+  
+    // Extract the 'token' parameter
+    const token = queryParams.get('token');
+    const userId = queryParams.get('userId');
+
+    const resetPass = async (e) =>{
+        e.preventDefault()
+        const resetData={
+            token:token,
+            userId:userId,
+            password:pass1.current.value,
+            confirmPassword:pass2.current.value
+        }
+    try {
+        const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/reset-password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(resetData),
+        });
+    
+        if (response.ok) {
+       console.log("Ugurlu")
+        } else {
+          const errorData = await response.json();
+          console.error('Giriş sırasında bir hata oluştu:', errorData);
+        }
+      } catch (error) {
+        console.error('Bağlantı hatası:', error);
+      }
+    }
+
     return (
         <>      <div className="parallax-wrapper">
             <div
@@ -32,7 +72,7 @@ const ForgotPassword = () => {
             <div className="login-container w-full max-w-5xl flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl">
                 {/* Left side - Gmail login form */}
                 <div className="resPass-form w-full lg:w-1/2 p-8 lg:p-12 bg-white bg-opacity-80 backdrop-blur-md">
-                    <form id="ressPass" className="space-y-8">
+                    <form id="ressPass" className="space-y-8" onSubmit={resetPass}>
                         <div className="text-center mb-8">
                             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
                                 Enter Your New Password
@@ -41,7 +81,7 @@ const ForgotPassword = () => {
                                 Safe and fast access with Lead2B
                             </p>
                         </div>
-                      
+
                         <div className="relative">
                             <input
                                 type="password"
@@ -49,6 +89,7 @@ const ForgotPassword = () => {
                                 placeholder=" "
                                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
                                 required
+ref={pass1}
                             />
                             <label
                                 htmlFor="email"
@@ -63,7 +104,9 @@ const ForgotPassword = () => {
                                 id="password1"
                                 placeholder=" "
                                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
-                                required=""
+                                required
+ref={pass2}
+
                             />
                             <label
                                 htmlFor="password"

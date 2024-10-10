@@ -1,9 +1,53 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import FirstRegister from './FirstRegister';
 import Register from '../pages/Register';
 
 const LoginForm = () => {
+const email = useRef()
+const pass = useRef()
+const nav = useNavigate()
+  const loginUser = async (e) => {
+    e.preventDefault()
+    const loginData = {
+      email: email.current.value,
+      password: pass.current.value,
+      rememberMe: true
+    };
+  
+    try {
+      const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(loginData),
+      });
+  
+      if (response.ok) {
+        const jwtToken = await response.text(); // JWT token'ı alıyoruz
+        nav("/dashboard")
+        console.log('Giriş başarılı, token:', jwtToken);
+        // Token'ı localStorage veya başka bir yerde saklayabilirsiniz
+        localStorage.setItem('token', jwtToken);
+      } else {
+        const errorData = await response.json();
+        console.error('Giriş sırasında bir hata oluştu:', errorData);
+      }
+    } catch (error) {
+      console.error('Bağlantı hatası:', error);
+    }
+  };
+  
+  // Örnek giriş verisi
+
+  
+  // Giriş işlemini başlatmak için bir olayda (örneğin buton tıklaması) bu fonksiyonu çağırabilirsiniz:
+ 
+
+
+
+
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -157,7 +201,7 @@ const LoginForm = () => {
       <div className="login-container w-full max-w-5xl flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl">
         {/* Left side - Gmail login form */}
         <div className="login-form w-full lg:w-1/2 p-8 lg:p-12 bg-white bg-opacity-80 backdrop-blur-md">
-          <form id="loginForm" className="space-y-8">
+          <form id="loginForm" className="space-y-8" onSubmit={loginUser}>
             <div className="text-center mb-8">
               <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
                 Enter your email
@@ -172,7 +216,8 @@ const LoginForm = () => {
                 id="email"
                 placeholder=" "
                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
-                required=""
+                required
+                ref={email}
               />
               <label
                 htmlFor="email"
@@ -187,7 +232,8 @@ const LoginForm = () => {
                 id="password"
                 placeholder=" "
                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
-                required=""
+                required
+                ref={pass}
               />
               <label
                 htmlFor="password"

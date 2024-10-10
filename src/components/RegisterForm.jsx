@@ -3,21 +3,22 @@ import React, { useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { usersApi } from '../services/base'
 import { useSelector } from 'react-redux'
+import { jwtDecode } from 'jwt-decode'
 
 const RegisterForm = () => {
-  
+
     const name = useRef(null)
     const surname = useRef(null)
- 
-   
- 
+
+
     const companyName = useRef(null)
     const phoneNumer = useRef(null)
 
     const companyDomain = useRef(null)
 
     const password = useSelector((state) => state.pass.password);
-    const token = useSelector((state)=>state.counter.token)
+    const token = useSelector((state) => state.counter.token)
+    const decodedToken = `${token}`
     console.log(password) // Make sure 'pass' matches the key in your store configuration
     console.log(token) // Make sure 'pass' matches the key in your store configuration
 
@@ -26,10 +27,10 @@ const RegisterForm = () => {
     const registerUser = async (e) => {
         e.preventDefault()
         const userData1 = {
-            email: 'user@example.com',
+            email: jwtDecode(decodedToken).sub,
             password: password,
             name: name.current.value,
-            ImageURL:"",
+            ImageURL: "",
             surname: surname.current.value,
             phone: phoneNumer.current.value,
             companyDomain: companyDomain.current.value,
@@ -48,6 +49,7 @@ const RegisterForm = () => {
             if (response.ok) {
                 const data = await response.text();
                 console.log('Kayıt başarılı:', data);
+                nav("/login")
             } else {
                 const errorData = await response.json();
                 console.error('Kayıt sırasında bir hata oluştu:', errorData);
@@ -55,146 +57,146 @@ const RegisterForm = () => {
         } catch (error) {
             console.error('Bağlantı hatası:', error);
         }
-    
-
-    // Örnek kullanıcı verisi
 
 
-    // const formData = new FormData();
-    // formData.append("file", file)
-    // formData.append("upload_preset", "x5obdcrh")
-    // axios.post(`https://api.cloudinary.com/v1_1/dcmgray9m/upload`, formData
-    // ).then(res => {
-
-    //     usersApi.registerUser(
-    //         {
-    //             name: name.current.value,
-    //             surname: surname.current.value,
-    //             email: email.current.value,
-    //             password: password.current.value,
-    //             company_name: companyName.current.value,
-    //             company_domain: companyDomain.current.value,
-    //             team_size: teamSize.current.value ? teamSize.current.value : "Only Me",
-    //             PhoneNumber: phoneNumer.current.value,
-    //             role: role.current.value ? role.current.value : "User",
-    //             avatar: res.data.url
-    //         }
-    //     ).then(res => {
-    //         if (res.status === 201) {
-    //             alert("Registration successfully completed")
-    //             name.current.value = ""
-    //             companyDomain.current.value = ""
-    //             companyName.current.value = ""
-    //             email.current.value = ""
-    //             surname.current.value = ""
-    //             role.current.value = "User"
-    //             teamSize.current.value = "Only Me"
-    //             phoneNumer.current.value = ""
-    //             name.current.value = ""
-    //             setFile(null)
-    //             nav("/login")
-    //         } else {
-    //             alert(res.statusText)
-    //         }
-    //     })
-
-    // })
-}
+        // Örnek kullanıcı verisi
 
 
-return (
-    <>
-        <div className="px-3 py-5 w-full">
-            <div className="max-w-[400px] w-full border rounded-lg">
-                <h3 className="font-medium text-center border-b py-4 text-[#0D0D0D] text-[20px]">
-                    User Register Form
-                </h3>
-                <form id="form" className="p-4 flex flex-col gap-[16px]" onSubmit={registerUser}>
-                    <div className="flex flex-col">
-                        <label className="mb-2 font-medium" htmlFor="name">
-                            Name
-                        </label>
-                        <input
-                            data-min={5}
-                            data-required="true"
-                            data-message="The name cannot be left blank!"
-                            name="name"
-                            className="border rounded-lg h-[40px] outline-none px-2"
-                            id="name"
-                            type="text"
-                            ref={name}
-                            required
+        // const formData = new FormData();
+        // formData.append("file", file)
+        // formData.append("upload_preset", "x5obdcrh")
+        // axios.post(`https://api.cloudinary.com/v1_1/dcmgray9m/upload`, formData
+        // ).then(res => {
 
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="mb-2 font-medium" htmlFor="surname">
-                            Surname
-                        </label>
-                        <input
-                            data-min={5}
-                            data-required="true"
-                            data-message="The surname cannot be left blank!"
-                            name="surname"
-                            className="border rounded-lg h-[40px] outline-none px-2"
-                            id="surname"
-                            type="text"
-                            ref={surname}
-                            required
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="mb-2 font-medium" htmlFor="companyName">
-                            Company Name
-                        </label>
-                        <input
-                            data-min={5}
-                            data-required="true"
-                            data-message="The companyName cannot be left blank!"
-                            name="companyName"
-                            className="border rounded-lg h-[40px] outline-none px-2"
-                            id="companyName"
-                            type="text"
-                            ref={companyName}
-                            required
+        //     usersApi.registerUser(
+        //         {
+        //             name: name.current.value,
+        //             surname: surname.current.value,
+        //             email: email.current.value,
+        //             password: password.current.value,
+        //             company_name: companyName.current.value,
+        //             company_domain: companyDomain.current.value,
+        //             team_size: teamSize.current.value ? teamSize.current.value : "Only Me",
+        //             PhoneNumber: phoneNumer.current.value,
+        //             role: role.current.value ? role.current.value : "User",
+        //             avatar: res.data.url
+        //         }
+        //     ).then(res => {
+        //         if (res.status === 201) {
+        //             alert("Registration successfully completed")
+        //             name.current.value = ""
+        //             companyDomain.current.value = ""
+        //             companyName.current.value = ""
+        //             email.current.value = ""
+        //             surname.current.value = ""
+        //             role.current.value = "User"
+        //             teamSize.current.value = "Only Me"
+        //             phoneNumer.current.value = ""
+        //             name.current.value = ""
+        //             setFile(null)
+        //             nav("/login")
+        //         } else {
+        //             alert(res.statusText)
+        //         }
+        //     })
 
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="mb-2 font-medium" htmlFor="companyDomain">
-                            Company Domain
-                        </label>
-                        <input
-                            data-min={5}
-                            data-required="true"
-                            data-message="The company domain cannot be left blank!"
-                            name="companyDomain"
-                            className="border rounded-lg h-[40px] outline-none px-2"
-                            id="companyDomain"
-                            type="text"
-                            ref={companyDomain}
-                            required
+        // })
+    }
 
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label className="mb-2 font-medium" htmlFor="phone">
-                            Phone
-                        </label>
-                        <input
-                            data-phone="true"
-                            data-required="true"
-                            data-message="The phone cannot be left blank!"
-                            name="phone"
-                            className="border rounded-lg h-[40px] outline-none px-2"
-                            id="phone"
-                            type="text"
-                            ref={phoneNumer}
-                            required
 
-                        />
-                    </div>
-                    {/* <div className="flex flex-col">
+    return (
+        <>
+            <div className="px-3 py-5 w-full">
+                <div className="max-w-[400px] w-full border rounded-lg">
+                    <h3 className="font-medium text-center border-b py-4 text-[#0D0D0D] text-[20px]">
+                        User Register Form
+                    </h3>
+                    <form id="form" className="p-4 flex flex-col gap-[16px]" onSubmit={registerUser}>
+                        <div className="flex flex-col">
+                            <label className="mb-2 font-medium" htmlFor="name">
+                                Name
+                            </label>
+                            <input
+                                data-min={5}
+                                data-required="true"
+                                data-message="The name cannot be left blank!"
+                                name="name"
+                                className="border rounded-lg h-[40px] outline-none px-2"
+                                id="name"
+                                type="text"
+                                ref={name}
+                                required
+
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="mb-2 font-medium" htmlFor="surname">
+                                Surname
+                            </label>
+                            <input
+                                data-min={5}
+                                data-required="true"
+                                data-message="The surname cannot be left blank!"
+                                name="surname"
+                                className="border rounded-lg h-[40px] outline-none px-2"
+                                id="surname"
+                                type="text"
+                                ref={surname}
+                                required
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="mb-2 font-medium" htmlFor="companyName">
+                                Company Name
+                            </label>
+                            <input
+                                data-min={5}
+                                data-required="true"
+                                data-message="The companyName cannot be left blank!"
+                                name="companyName"
+                                className="border rounded-lg h-[40px] outline-none px-2"
+                                id="companyName"
+                                type="text"
+                                ref={companyName}
+                                required
+
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="mb-2 font-medium" htmlFor="companyDomain">
+                                Company Domain
+                            </label>
+                            <input
+                                data-min={5}
+                                data-required="true"
+                                data-message="The company domain cannot be left blank!"
+                                name="companyDomain"
+                                className="border rounded-lg h-[40px] outline-none px-2"
+                                id="companyDomain"
+                                type="text"
+                                ref={companyDomain}
+                                required
+
+                            />
+                        </div>
+                        <div className="flex flex-col">
+                            <label className="mb-2 font-medium" htmlFor="phone">
+                                Phone
+                            </label>
+                            <input
+                                data-phone="true"
+                                data-required="true"
+                                data-message="The phone cannot be left blank!"
+                                name="phone"
+                                className="border rounded-lg h-[40px] outline-none px-2"
+                                id="phone"
+                                type="text"
+                                ref={phoneNumer}
+                                required
+
+                            />
+                        </div>
+                        {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="teamSize">
                                 Team Size
                             </label>
@@ -224,7 +226,7 @@ return (
                                 <option value="Admin">Admin</option>
                             </select>
                         </div> */}
-                    {/* <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="email">
                                 Email
                             </label>
@@ -242,7 +244,7 @@ return (
                             />
                         </div> */}
 
-                    {/* <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="re-password">
                                 Repeat Password
                             </label>
@@ -257,7 +259,7 @@ return (
                                 type="password"
                             />
                         </div> */}
-                    {/* <div className="flex flex-col">
+                        {/* <div className="flex flex-col">
                             <label className="mb-2 font-medium" htmlFor="profphoto">
                                 Profile Photo
                             </label>
@@ -274,19 +276,19 @@ return (
                                 onChange={(e) => setFile(e.target.files[0])}
                             />
                         </div> */}
-                    <button
-                        className="bg-[#FE3737] text-white font-medium py-2 rounded-lg"
-                        type="submit"
-                    >
+                        <button
+                            className="bg-[#FE3737] text-white font-medium py-2 rounded-lg"
+                            type="submit"
+                        >
 
-                        Register
-                    </button>
-                    <Link to={"/login"}>Login</Link>    </form>
+                            Register
+                        </button>
+                        <Link to={"/login"}>Login</Link>    </form>
+                </div>
             </div>
-        </div>
 
-    </>
-)
+        </>
+    )
 }
 
 export default RegisterForm
