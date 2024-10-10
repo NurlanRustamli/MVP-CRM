@@ -10,6 +10,8 @@ import RegisterDetail from './pages/RegisterDetail'
 import RegisterPassword from './pages/RegisterPassword'
 import ResetPassPage from './pages/ResetPassEmailPage'
 import ForgotPassPage from './pages/ForgotPassPage'
+import Invitation from './components/Invitation'
+import Dashboard from './components/Dashboard'
 
 
 function App() {
@@ -23,10 +25,12 @@ function App() {
           <Route element={<Register />} path='register' />
           <Route element={<Login />} path='login' />
           <Route element={<RegisterDetail />} path='email-confirmation/detail' />
-          <Route element={<RegisterPassword />} path='email-confirmation/' />
-          <Route element={<ResetPassPage />} path='forgot-password/' >
-          </Route>
+          <Route element={<RegisterPassword />} path='email-confirmation' />
+          <Route element={<ResetPassPage />} path='forgot-password' />
+
             <Route element={<ForgotPassPage />} path='new-password' />
+          <Route element={<Invitation/>} path='invitation'/>
+          <Route element={<Dashboard/>} path='dashboard'/>
         </Route>
       </Routes>
     </>

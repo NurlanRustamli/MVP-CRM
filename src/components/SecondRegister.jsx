@@ -1,27 +1,49 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
-import { useNavigate } from 'react-router'
+import { useDispatch, useSelector } from 'react-redux'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import { Link } from 'react-router-dom'
+import { changePass } from '../redux/passSlice'
+import { changeToken } from '../redux/counterSlice'
 
 const SecondRegister = () => {
     const [eye, setEye] = useState(false)
     const [eye1, setEye1] = useState(false)
 
-    const pass1 = useRef()
-    const pass2 = useRef()
 
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    // Create a new URLSearchParams instance to parse the query string
+    const queryParams = new URLSearchParams(location.search);
+  
+    // Extract the 'token' parameter
+    const token = queryParams.get('token');
+    // Select password from the Redux store state
+console.log(token)
+    const pass1 = useRef();
+    const pass2 = useRef();
     const checkPassword = (e) => {
-        e.preventDefault()
-
-        if (pass1.current.value === pass2.current.value) {
-            nav("/email-confirmation/detail")
-
+        e.preventDefault();
+        
+        const pass1Value = pass1.current.value;
+        const pass2Value = pass2.current.value;
+        
+        if (pass1Value === pass2Value) {
+            // Dispatch the action with the password value
+            dispatch(changePass(pass1Value));
+            dispatch(changeToken(token))
+            
+            navigate('/email-confirmation/detail'); // Assuming you have set up this route
+            
         } else {
-            alert("You wrote different passwords in both fields")
+            alert('You wrote different passwords in both fields');
         }
-    }
+    };
 
-    const nav = useNavigate()
+    
     return (
         <>
             <div className="flex h-screen">

@@ -6,27 +6,52 @@ const FirstRegister = () => {
   const nav = useNavigate()
   const email = useRef("")
 
-  const emailSend = async (e) => {
+  const sendConfirmationEmail = async (e) => {
     e.preventDefault()
-    console.log(email.current.value)
-    if (email.current.value != "") {
-      try {
+    try {
+      const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/email', { // API endpointin buraya girilmeli
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(email.current.value),
+      });
 
-        await axios.post("http://constructionasp-001-site1.ctempurl.com/api/admin/user", { email: email.current.value })
-      } catch (error) {
-        console.log(error)
+      if (response.ok) {
+        console.log('Email gönderildi!');
+      } else {
+        const errorData = await response.text();
+        console.error('Email gönderilirken bir hata oluştu:', errorData);
       }
+    } catch (error) {
+      console.error('Bağlantı hatası:', error);
     }
+  };
 
-    // nav("/email-confirmation")
+  
 
 
-  }
+  // const emailSend = async (e) => {
+  //   e.preventDefault()
+  //   console.log(email.current.value)
+  //   if (email.current.value != "") {
+  //     try {
+
+  //       await axios.post("", { email: email.current.value })
+  //     } catch (error) {
+  //       console.log(error)
+  //     }
+  //   }
+
+  //   // nav("/email-confirmation")
+
+
+  // }
   return (
     <div className="flex h-screen">
       {/* Left side - Gmail login form */}
       <div className=" flex items-center justify-center slide-in-left">
-        <form id="loginForm" className="bg-white p-8 rounded-lg shadow-md w-80" onSubmit={emailSend}>
+        <form id="loginForm" className="bg-white p-8 rounded-lg shadow-md w-80" onSubmit={sendConfirmationEmail}>
           <div className="flex items-center justify-center mb-6">
             <svg
               className="text-red-500 mr-2"

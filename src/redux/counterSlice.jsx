@@ -1,17 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    email:"",
+    "token": "",
 }
 
 export const counterSlice = createSlice({
-    name:"counter",
+    name: "counter",
     initialState,
-    reducers:{
-
+    reducers: {
+        changeToken: (state, action) => {
+            state.token = action.payload
+        }
     }
 })
 
-export const { } = counterSlice.actions
+export const { changeToken } = counterSlice.actions
 
 export default counterSlice.reducer

@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const ResetPass = () => {
 
-
+const nav = useNavigate()
     return (
         <>      <div className="parallax-wrapper">
             <div
@@ -34,7 +34,7 @@ const ResetPass = () => {
             <div className="login-container w-full max-w-5xl flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl">
                 {/* Left side - Gmail login form */}
                 <div className="resPassEmail-form w-full lg:w-1/2 p-8 lg:p-12 bg-white bg-opacity-80 backdrop-blur-md">
-                    <form id="ressPassEmail" className="space-y-8">
+                    <form id="ressPassEmail" className="space-y-8" onSubmit={()=>nav("/new-password")}>
                         <div className="text-center mb-8">
                             <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
                                 Forgot Password
