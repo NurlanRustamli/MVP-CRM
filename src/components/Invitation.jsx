@@ -31,6 +31,7 @@ const Invitation = () => {
         
           if (response.ok) {
             alert('Emails sent successfully');
+            nav("/dashboard")
           } else {
             const errorMessage = await response.text();
             console.error('Error sending emails:', errorMessage);
