@@ -7,7 +7,7 @@ const ResetPass = () => {
     const forgotUser = async (e) => {
 e.preventDefault()
         try {
-            const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/forgot-password', {
+            const response = await fetch('https://2f2d-62-217-156-173.ngrok-free.app/api/admin/user/forgot-password', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ e.preventDefault()
             });
 
             if (response.ok) {
-               
+               alert("Email sent")
             } else {
                 const errorData = await response.json();
                 console.error('Giriş sırasında bir hata oluştu:', errorData);

@@ -1,49 +1,51 @@
 import React, { useRef } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 
 const ForgotPassword = () => {
-
+    const nav = useNavigate()
     const pass1 = useRef()
     const pass2 = useRef()
     const location = useLocation();
 
     // Create a new URLSearchParams instance to parse the query string
     const queryParams = new URLSearchParams(location.search);
-  
+
     // Extract the 'token' parameter
     const token = queryParams.get('token');
     const userId = queryParams.get('userId');
 
-    const resetPass = async (e) =>{
+    const resetPass = async (e) => {
         e.preventDefault()
-        const resetData={
-            token:token,
-            userId:userId,
-            password:pass1.current.value,
-            confirmPassword:pass2.current.value
+        const resetData = {
+            token: token,
+            userId: userId,
+            password: pass1.current.value,
+            confirmPassword: pass2.current.value
         }
-    try {
-        const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/reset-password', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(resetData),
-        });
-    
-        if (response.ok) {
-       console.log("Ugurlu")
-        } else {
-          const errorData = await response.json();
-          console.error('Giriş sırasında bir hata oluştu:', errorData);
+        try {
+            const response = await fetch('https://2f2d-62-217-156-173.ngrok-free.app/api/admin/user/reset-password', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(resetData),
+            });
+
+            if (response.ok) {
+                nav("/login")
+                console.log("Ugurlu")
+            } else {
+                const errorData = await response.json();
+                console.error('Giriş sırasında bir hata oluştu:', errorData);
+            }
+        } catch (error) {
+            console.error('Bağlantı hatası:', error);
         }
-      } catch (error) {
-        console.error('Bağlantı hatası:', error);
-      }
     }
 
     return (
-        <>      <div className="parallax-wrapper">
+        <>      
+        <div className="parallax-wrapper">
             <div
                 className="parallax-layer"
                 style={{
@@ -89,7 +91,7 @@ const ForgotPassword = () => {
                                 placeholder=" "
                                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
                                 required
-ref={pass1}
+                                ref={pass1}
                             />
                             <label
                                 htmlFor="email"
@@ -105,7 +107,7 @@ ref={pass1}
                                 placeholder=" "
                                 className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
                                 required
-ref={pass2}
+                                ref={pass2}
 
                             />
                             <label

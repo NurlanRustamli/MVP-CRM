@@ -9,7 +9,7 @@ const FirstRegister = () => {
   const sendConfirmationEmail = async (e) => {
     e.preventDefault()
     try {
-      const response = await fetch('https://f70c-62-217-158-38.ngrok-free.app/api/admin/user/email', { // API endpointin buraya girilmeli
+      const response = await fetch('https://2f2d-62-217-156-173.ngrok-free.app/api/admin/user/email', { // API endpointin buraya girilmeli
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -18,6 +18,7 @@ const FirstRegister = () => {
       });
 
       if (response.ok) {
+        alert("Email Sent")
         console.log('Email gönderildi!');
       } else {
         const errorData = await response.text();
