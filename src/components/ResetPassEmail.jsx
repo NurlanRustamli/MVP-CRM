@@ -1,126 +1,68 @@
-import React, { useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useState } from 'react';
+import Logo from "./Logo"
 
-const ResetPass = () => {
-    const email = useRef()
+export default function Component() {
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-    const forgotUser = async (e) => {
-e.preventDefault()
-        try {
-            const response = await fetch('https://2f2d-62-217-156-173.ngrok-free.app/api/admin/user/forgot-password', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(email.current.value),
-            });
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle password change logic here
+    console.log('Password change submitted');
+  };
 
-            if (response.ok) {
-               alert("Email sent")
-            } else {
-                const errorData = await response.json();
-                console.error('Giriş sırasında bir hata oluştu:', errorData);
-            }
-        } catch (error) {
-            console.error('Bağlantı hatası:', error);
-        }
-    }
-const nav = useNavigate()
-    return (
-        <>      <div className="parallax-wrapper">
-            <div
-                className="parallax-layer"
-                style={{
-                    backgroundImage:
-                        'url("https://via.placeholder.com/1500x1000/3498db/ffffff?text=Layer+1")',
-                    transform: "translateZ(-300px) scale(2)"
-                }}
-            />
-            <div
-                className="parallax-layer"
-                style={{
-                    backgroundImage:
-                        'url("https://via.placeholder.com/1500x1000/2c3e50/ffffff?text=Layer+2")',
-                    transform: "translateZ(-200px) scale(1.7)"
-                }}
-            />
-            <div
-                className="parallax-layer"
-                style={{
-                    backgroundImage:
-                        'url("https://via.placeholder.com/1500x1000/34495e/ffffff?text=Layer+3")',
-                    transform: "translateZ(-100px) scale(1.4)"
-                }}
-            />
-        </div>
-            <div className="login-container w-full max-w-5xl flex flex-col lg:flex-row rounded-3xl overflow-hidden shadow-2xl">
-                {/* Left side - Gmail login form */}
-                <div className="resPassEmail-form w-full lg:w-1/2 p-8 lg:p-12 bg-white bg-opacity-80 backdrop-blur-md">
-                    <form id="ressPassEmail" className="space-y-8" onSubmit={forgotUser}>
-                        <div className="text-center mb-8">
-                            <h2 className="text-3xl lg:text-4xl font-bold text-gray-800 mb-2">
-                                Forgot Password
-                            </h2>
-                            <h3 className="text-xl lg:text-3xl font-bold text-gray-800 mb-2">
-                                Enter Your Email
-                            </h3>
-                            <p className="text-gray-600 text-base lg:text-lg">
-                                Safe and fast access with Lead2B
-                            </p>
-                        </div>
-                        <div className="relative">
-                            <input
-                                type="email"
-                                id="email"
-                                placeholder=" "
-                                className="input-field w-full px-4 py-3 lg:px-5 lg:py-4 rounded-lg border-2 border-gray-300 focus:outline-none focus:border-blue-500 text-base lg:text-lg"
-                                required
-                                ref={email}
-                            />
-                            <label
-                                htmlFor="email"
-                                className="input-label absolute left-4 top-3 lg:left-5 lg:top-4 text-gray-500 text-base lg:text-lg transition-all duration-300 pointer-events-none"
-                            >
-                                Email
-                            </label>
-                        </div>
-
-                        <div>
-                            <button
-                                id="loginButton"
-                                className="login-btn w-full text-white py-5 lg:py-4 rounded-lg text-lg lg:text-xl font-semibold relative overflow-hidden"
-                                type="submit"
-                            >
-                                <span className="relative z-10">Next</span>
-                            </button>
-                        </div>
-                    </form>
-                    <div >
-                        <div>
-                            <Link to={"/register"} >Register</Link>
-                        </div>
-                        <div>
-                            <Link to={"/login"} >Login</Link>
-                        </div>
-                    </div>
-
-                </div>
-                {/* Right side - Lead2B Logo */}
-                <div
-                    className="logo-container w-full lg:w-1/2 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center relative"
-                    style={{ minHeight: 300 }}
-                >
-                    <canvas id="logo-canvas" />
-                    <div className="logo-content text-center p-8">
-                        <h1 className="glow-text text-5xl lg:text-7xl font-bold text-white mb-4 lg:mb-6">
-                            Lead2B
-                        </h1>
-                        <p className="text-xl lg:text-2xl text-blue-100">Future's CRM solution</p>
-                    </div>
-                </div>
+  return (
+    <div className="min-h-screen bg-gray-100 w-full">
+      <header className="bg-white shadow-md">
+        <div className="container mx-auto px-4 h-16 flex items-center">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 rounded flex items-center justify-center">
+           <Logo />
             </div>
-        </>
-    )
-}
+            <span className="text-xl font-semibold text-gray-800">Lead2b</span>
+          </div>
+        </div>
+      </header>
 
-export default ResetPass
+      <main className="container mx-auto px-4 py-8">
+        <div className="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+          <h1 className="text-2xl font-semibold text-center mb-2">Change password</h1>
+          <p className="text-gray-600 text-center mb-6">Don't forget to store your new password securely.</p>
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="new-password" className="block text-sm font-medium text-gray-700 mb-1">New password</label>
+              <input
+                id="new-password"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter at least 8 characters"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700 mb-1">Confirm new password</label>
+              <input
+                id="confirm-password"
+                type="password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter new password"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+            >
+              Change my password
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
+  );
+}
